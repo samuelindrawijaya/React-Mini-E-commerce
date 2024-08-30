@@ -12,25 +12,21 @@ const CheckoutPages = () => {
 
     const { total, itemAmount, product, clearCart } = useProductDataCart();
     const [shippingAddress, setShippingAddress] = useState("");
+    //drop down event
     const [paymentMethod, setPaymentMethod] = useState("Credit Card");
     const [orderConfirmed, setOrderConfirmed] = useState(false);
 
-    const handleShippingAddressChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleShippingAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setShippingAddress(e.target.value);
     };
 
-    const handlePaymentMethodChange = (
-        e: React.ChangeEvent<HTMLSelectElement>
-    ) => {
+    const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setPaymentMethod(e.target.value);
     };
 
     const handleCheckout = () => {
-        console.log("Order placed with shipping address:", shippingAddress);
-        console.log("Payment method:", paymentMethod);
-        console.log("Total amount:", total);
+        console.log(shippingAddress);
+        console.log(total);
         clearCart();
         setOrderConfirmed(true);
     };
