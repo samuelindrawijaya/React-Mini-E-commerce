@@ -14,9 +14,10 @@ import CategoryList from "./component/CategoryList";
 import SidebarProvider from "./context/sideBarContext";
 import Sidebar from './component/cartSideBar';
 import ProductContext from "./context/productContext";
-import ProductDetail from "./component/productDetail";  
+import ProductDetail from "./pages/productDetail";  
 import CheckoutPages from "./component/checkoutPages";
-const NotFound: React.FC = () => <h2>404 Not Found</h2>;
+import NotFound from "./pages/notFound";
+
 
 function App() {
   return (
@@ -30,10 +31,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/checkoutPages" element={<CheckoutPages />} />
-            <Route path="/productList/:id" element={<ProductDetail />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/categorylist" element={<CategoryList />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/checkoutPages" element={<CheckoutPages />} />
+              <Route path="/productList/:id" element={<ProductDetail />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

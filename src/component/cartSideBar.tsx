@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdArrowForward } from "react-icons/io";
 import { FiTrash2 } from "react-icons/fi";
@@ -20,9 +20,27 @@ const Sidebar = () => {
     throw new Error("ProductContext must be used within a ProductProvider");
   }
 
-  const { isOpen, handleClose,handleOpen } = context; // Ensure handleOpen is available if needed
-  const { total, itemAmount, product, clearCart } = useProductDataCart();
+  const { isOpen, handleClose } = context;
+  const { total, itemAmount, product, clearCart,fetchItemsFromLocalStorage } = useProductDataCart();
 
+  // Local state to trigger re-renders
+  const [cartProducts, setCartProducts] = useState(product);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setCartProducts(fetchItemsFromLocalStorage());
+    };
+
+    window.addEventListener("local-storage-update", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("local-storage-update", handleStorageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    setCartProducts(product);
+  }, [product]);
 
   // Handle navigation and close sidebar
   const handleCheckout = () => {
@@ -57,9 +75,15 @@ const Sidebar = () => {
         overflow-y-auto overflow-x-hidden border-b
         "
       >
-        {product.map((item) => (
-          <CartData item={item} key={item.id} />
-        ))}
+        {cartProducts.length === 0 ? (
+          <div className="flex justify-center items-center p-4">
+            <p>Your cart is empty</p>
+          </div>
+        ) : (
+          cartProducts.map((item) => (
+            <CartData item={item} key={item.id} />
+          ))
+        )}
       </div>
       <div className="flex flex-col gap-y-3 py-4 mt-4">
         <div className="flex w-full justify-between items-center">
@@ -71,7 +95,7 @@ const Sidebar = () => {
             cursor-pointer py-4 bg-red-500 text-white w-12 h-12
             flex justify-center items-center text-xl
             "
-            onClick={clearCart}
+            onClick={clearCart} // Call clearCart directly
           >
             <FiTrash2 />
           </div>
@@ -79,14 +103,14 @@ const Sidebar = () => {
         <Link
           to={"/checkoutPages"}
           className="bg-gray-200 flex p-4 justify-center items-center text-primary w-full font-medium"
-          onClick={handleCheckout} // Use handleCheckout for this link
+          onClick={handleCheckout}
         >
           View Cart
         </Link>
         <Link
           to={"/"}
           className="bg-primary flex p-4 justify-center items-center text-white w-full font-medium"
-          onClick={handleCheckout} // Use handleCheckout for this link
+          onClick={handleCheckout}
         >
           Checkout
         </Link>

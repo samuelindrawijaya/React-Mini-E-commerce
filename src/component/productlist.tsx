@@ -5,21 +5,25 @@ import { ProductModel } from "../interface/ProductModel";
 import useProductDataCart from "../hooks/useCartController";
 import { SidebarContext } from "../context/sideBarContext";
 //import { CartContext } from "~contexts/CartContext";
-interface ProductProps{
-    data : ProductModel
+interface ProductProps {
+  data: ProductModel;
 }
-const Product : React.FC <ProductProps> = ({data}) => {
-
+const Product: React.FC<ProductProps> = ({ data }) => {
   const { addToCart } = useProductDataCart();
   const context = useContext(SidebarContext);
   if (context === undefined) {
-      throw new Error("SomeComponent must be used within a SidebarProvider");
+    throw new Error("SomeComponent must be used within a SidebarProvider");
   }
- 
-  
-  const handlecart = (value : number, data : ProductModel) => {
-    addToCart(value,data);
+
+  const handlecart = (value: number, data: ProductModel) => {
+    addToCart(value, data);
   };
+
+  const brokenImg = data.images.join("");
+  let regexImg = brokenImg.replace(/\\|"/g, "");
+  regexImg = regexImg.substring(1, regexImg.length - 1);
+  console.log(regexImg);
+  const fixedImg = regexImg.split(",").map((url) => url.trim());
 
   return (
     <div>
@@ -28,7 +32,7 @@ const Product : React.FC <ProductProps> = ({data}) => {
           <div className="w-[200px] mx-auto flex justify-center items-center">
             <img
               className="max-h-[180px] group-hover:scale-110 transition duration-300"
-              src={data.images[0]}
+              src={fixedImg[0]}
               alt=""
             />
           </div>
@@ -41,7 +45,7 @@ const Product : React.FC <ProductProps> = ({data}) => {
                     transition-all duration-300
                     "
         >
-          <button onClick={() => handlecart(1,data)}>
+          <button onClick={() => handlecart(1, data)}>
             <div className="flex justify-center items-center text-white w-12 h-12 bg-red-500">
               <HiPlusSmall className="text-3xl" />
             </div>
@@ -55,7 +59,9 @@ const Product : React.FC <ProductProps> = ({data}) => {
         </div>
       </div>
       <div>
-        <div className="text-sm capitalize text-gray-500 mb-1">{data.category.name}</div>
+        <div className="text-sm capitalize text-gray-500 mb-1">
+          {data.category.name}
+        </div>
         <Link to={`/product/${data.id}`}>
           <h2 className="font-semibold mb-1">{data.title}</h2>
         </Link>

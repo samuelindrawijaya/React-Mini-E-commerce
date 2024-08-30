@@ -34,8 +34,17 @@ const ProductPage = () => {
 
 
 
+  let fixedImg: any[] = [];
+  const [activeImg, setActiveImage] = useState(productData?.images[0].replace(/\\|"/g, "").substring(1, productData?.images[0].length - 1));
+  if(productData?.images)
+  {
+    console.log('masuk');
+    const brokenImg = productData?.images.join("");
+    let regexImg = brokenImg.replace(/\\|"/g, "");
+    regexImg = regexImg.substring(1, regexImg.length - 1);
+    fixedImg = regexImg.split(',').map((url: string) => url.trim());
+  }
 
-  const [activeImg, setActiveImage] = useState(productData?.images[1]);
 
 
 
@@ -69,9 +78,6 @@ const ProductPage = () => {
       </section>
     );
   }
-
-  // const { title, price, description, images } = product;
-
   return (
     <section className="pt-32 pb-12 lg:py-32 h-screen flex items-center">
       <div className="flex flex-col gap-6 lg:w-2/4">
@@ -83,7 +89,7 @@ const ProductPage = () => {
               className="w-full h-full aspect-square object-cover rounded-xl"
             />
             <div className="flex flex-row justify gap-6 h-24">
-              {productData?.images.map((item) => (
+              {fixedImg.map((item) => (
                 <img
                   key={item}
                   src={item}

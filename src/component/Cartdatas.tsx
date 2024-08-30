@@ -12,7 +12,15 @@ const CartData = ({ item } : any) => {
 
    //manggil hooks lagi
    const { removeFromCart,decreaseAmount,increaseAmount } = useProductDataCart();
+   const brokenImg = images.join("");
+   let regexImg = brokenImg.replace(/\\|"/g, "");
+   regexImg = regexImg.substring(1, regexImg.length - 1);
+   const fixedImg = regexImg.split(',').map((url: string) => url.trim());
 
+
+
+
+   console.log(regexImg);
   return (
     <div
       className="
@@ -23,7 +31,7 @@ const CartData = ({ item } : any) => {
     >
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
         <Link to={`/productList/${id}`}>
-          <img className="max-w-[80px]" src={images[0]} alt="" />
+          <img className="max-w-[80px]" src={fixedImg[0]} alt="" />
         </Link>
         <div className="w-full flex flex-col">
           <div className="flex justify-between mb-2">

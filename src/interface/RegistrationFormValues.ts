@@ -3,6 +3,7 @@ export interface RegistrationFormValues {
       fullName: string
       dateOfBirth: string
       email: string
+      image : File | null
     }
     stepTwo: {
       streetAddress: string

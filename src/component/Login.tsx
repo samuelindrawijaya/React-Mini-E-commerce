@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm";
 import { useAuth } from "../context/AuthContext"; // Import useAuth
 import { useNavigate } from "react-router-dom";
 import { loginArr } from "../interface/loginInterface";
+import Swal from "sweetalert2";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -32,12 +33,10 @@ const Login: React.FC = () => {
 
       if (storedToken) {
         console.log("Login successful, redirecting...");
-        navigate("/categorylist"); // Redirect to the todos page
+        navigate("/"); 
 
       } else {
-
-        alert("No registered user found");
-        navigate("/register");
+        Swal.fire("ERROR!  ", "No registered user found", "error");
 
       }
     }).catch(function(error){

@@ -29,9 +29,11 @@ const Register: React.FC = () => {
     return new Promise(resolve => setTimeout(resolve, time));
   }
   const handleSubmit = (step: number, values: RegistrationFormValues) => {
+    console.log(values.stepOne.image);
     if (step === 3) {
+
       const params: userDataInterface = {
-        urlEndpoint: `http://localhost:8080/register`,
+        urlEndpoint: `https://api.escuelajs.co/api/v1/users/`,
         methode: "POST",
         body: values,
       };
@@ -61,6 +63,7 @@ const Register: React.FC = () => {
         fullName: "",
         dateOfBirth: "",
         email: "",
+        image : null,
       },
       stepTwo: {
         streetAddress: "",

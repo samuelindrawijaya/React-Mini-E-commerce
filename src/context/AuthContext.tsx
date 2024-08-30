@@ -2,16 +2,18 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import Login from "../component/Login";
 import { loginArr } from "../interface/loginInterface";
+import Swal from "sweetalert2";
+import useProductDataCart from "../hooks/useCartController";
 
 interface AuthContextType {
   isAuthenticated: boolean;
   login: ({email, password} : loginArr) => Promise<loginArr[]> ;
   logout: () => void;
-  register: (email: string, password: string) => void; // Add register function
+  register: (email: string, password: string) => void;
+  fetchWithBearerToken: (url: string, token: string) => void; // Add register function
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => 
@@ -23,14 +25,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const login = async({ email, password, rememberme } : loginArr ) : Promise<loginArr[]> => {
     if(email)
     {
-      alert(rememberme);
-      localStorage.setItem("rememberedEmail", email);
+      //localStorage.setItem("rememberedEmail", email);
     }
 
 
     try
     {
-      const response = await fetch('http://localhost:8080/login', {
+      const response = await fetch('https://api.escuelajs.co/api/v1/auth/login', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -39,7 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             email: email,
             password: password,
         })
-      }) /*end fetch */;
+      }) 
       if(!response.ok)
       {
         setIsAuthenticated(false);
@@ -49,7 +50,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       else
       {
         const data = await response.json();
-        localStorage.setItem("authToken", JSON.stringify(data.accessToken));
+        localStorage.setItem("authToken", JSON.stringify(data.access_token));
         setIsAuthenticated(true);
         return data;
       }
@@ -57,9 +58,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     catch (error: unknown) 
     {   
         if (error instanceof Error) {
-            alert(error.message);
+            Swal.fire("ERROR!  ", error.message, "error");
         } else {
-            alert('An unknown error occurred');
+            Swal.fire("ERROR!  ", "An unknown error occurred !!", "error");
         }
         return [];	
     }
@@ -68,6 +69,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem("authToken");
+    
+  };
+
+  const fetchWithBearerToken = async (url : string, token : string) => {
+    try {
+      const response = await fetch(url, {
+        method: 'GET', // You can use POST, PUT, DELETE, etc. depending on your needs
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      localStorage.setItem("imgUser", JSON.stringify(data.avatar));
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
   };
 
   const register = (email: string, password: string) => {
@@ -78,7 +102,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, register,fetchWithBearerToken }}>
       {children}
     </AuthContext.Provider>
   );

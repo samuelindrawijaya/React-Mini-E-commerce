@@ -16,7 +16,8 @@ const stepOneSchema = Yup.object().shape({
       .matches(
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
         'Invalid email format'
-      )
+      ),
+      
   })
 })
 
@@ -39,7 +40,6 @@ const stepThreeSchema = Yup.object().shape({
       .matches(/[a-z]/, 'Password must contain a lowercase letter')
       .matches(/[A-Z]/, 'Password must contain an uppercase letter')
       .matches(/[0-9]/, 'Password must contain a number')
-      .matches(/[!@#$%^&*]/, 'Password must contain a special character')
       .required('Password is required')
   })
 })

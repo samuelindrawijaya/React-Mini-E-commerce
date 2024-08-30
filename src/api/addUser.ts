@@ -4,7 +4,6 @@ import { userDataInterface } from "../interface/userDataInterface";
 export const addUser = async({ urlEndpoint, methode, body } : userDataInterface ) : Promise<string | undefined> => {
     try
     {
-    
         const response = await fetch(urlEndpoint, {
             method: methode,
             headers: {
@@ -13,9 +12,8 @@ export const addUser = async({ urlEndpoint, methode, body } : userDataInterface 
             body: JSON.stringify({
                 email: body?.stepOne.email,
                 password: body?.stepThree.password,
-                username : body?.stepThree.username,
-                fullname  : body?.stepOne.fullName,
-                address   : body?.stepTwo.streetAddress
+                name  : body?.stepOne.fullName,
+                avatar  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKDjZCK3SgpCVzStNnivj4NESE-BynTP5ffe-WjxhLn0iAM93AOed6b25lKKjOGEOPExI&usqp=CAU'
             })
           }) /*end fetch */;
           if(response.ok)
