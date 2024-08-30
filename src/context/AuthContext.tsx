@@ -3,7 +3,6 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 import Login from "../component/Login";
 import { loginArr } from "../interface/loginInterface";
 import Swal from "sweetalert2";
-import useProductDataCart from "../hooks/useCartController";
 
 interface AuthContextType {
   isAuthenticated: boolean;
