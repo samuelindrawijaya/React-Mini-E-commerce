@@ -141,7 +141,7 @@ The products data were fetched from [Platzi Fake Store API](https://api.escuelaj
 
 ## Usage
 
-- Start the development server: `npm run dev`
+- Start the development server: `npm run `
 
 
 # DEPLOYMENT LINK
