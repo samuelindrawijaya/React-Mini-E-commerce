@@ -15,18 +15,26 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (isAuthenticated) {
-        const itemsJson = localStorage.getItem("authToken") || "";
-        const token = JSON.parse(itemsJson);
-        fetchWithBearerToken(
-          "https://api.escuelajs.co/api/v1/auth/profile",
-          token
-        );
-        const imgJson = localStorage.getItem("imgUser") || "";
-        const img = JSON.parse(imgJson);
-        setimg(img);
+        try {
+          const itemsJson = localStorage.getItem("authToken") || "";
+          if (itemsJson) {
+            const token = JSON.parse(itemsJson);
+            await fetchWithBearerToken(
+              "https://api.escuelajs.co/api/v1/auth/profile",
+              token
+            );
+
+            const imgJson = localStorage.getItem("imgUser") || "";
+            if (imgJson) {
+              const userImg = JSON.parse(imgJson);
+              setimg(userImg);
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching user profile or parsing JSON:", error);
+        }
       }
     };
-
     fetchUserProfile();
   }, [isAuthenticated]);
 
@@ -47,6 +55,8 @@ const Navbar: React.FC = () => {
   const handleLogout = () => {
      logout();
      clearCart();
+     localStorage.removeItem("imgUser");
+     setimg(undefined);
   };
 
 

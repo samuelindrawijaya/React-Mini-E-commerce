@@ -19,11 +19,11 @@ const Product: React.FC<ProductProps> = ({ data }) => {
     addToCart(value, data);
   };
 
-  const brokenImg = data.images.join("");
-  let regexImg = brokenImg.replace(/\\|"/g, "");
-  regexImg = regexImg.substring(1, regexImg.length - 1);
-  console.log(regexImg);
-  const fixedImg = regexImg.split(",").map((url) => url.trim());
+  // const brokenImg = data.images.join("");
+  // let regexImg = brokenImg.replace(/\\|"/g, "");
+  // regexImg = regexImg.substring(1, regexImg.length - 1);
+  // console.log(regexImg);
+  // const fixedImg = regexImg.split(",").map((url) => url.trim());
 
   return (
     <div>
@@ -32,7 +32,7 @@ const Product: React.FC<ProductProps> = ({ data }) => {
           <div className="w-[200px] mx-auto flex justify-center items-center">
             <img
               className="max-h-[180px] group-hover:scale-110 transition duration-300"
-              src={fixedImg[0]}
+              src={data.images[0]}
               alt=""
             />
           </div>

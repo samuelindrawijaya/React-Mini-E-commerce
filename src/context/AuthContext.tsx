@@ -56,6 +56,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
     catch (error: unknown) 
     {   
+
+        console.log(error);
         if (error instanceof Error) {
             Swal.fire("ERROR!  ", error.message, "error");
         } else {
@@ -82,14 +84,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       });
   
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        Swal.fire("ERROR!  ", 'Network response was not ok', "error");
       }
   
       const data = await response.json();
       localStorage.setItem("imgUser", JSON.stringify(data.avatar));
     } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-      throw error;
+      Swal.fire("ERROR!  ", 'Something bad happen !!', "error");
+     
     }
   };
 

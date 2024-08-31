@@ -25,7 +25,7 @@ const CheckoutData = ({ item }: any) => {
               <div className="flex items-center">
                 <img
                   className="h-16 w-16 mr-4"
-                  src={images[0].replace(/\\|"/g, "").substring(1, images[0].length - 1)}
+                  src={images[0]}
                   alt={title}
                 />
                 <span className="font-semibold text-gray-800">{title}</span>

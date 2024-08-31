@@ -22,12 +22,12 @@ const LoginForm: React.FC<LoginFormProps> = ({
   const localEmail = localStorage.getItem('rememberedEmail');
   const [rememberMie,setRemembermee] = useState(false);
 
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('rememberedEmail');
-    if (savedEmail) {
-      setEmail(savedEmail);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedEmail = localStorage.getItem('rememberedEmail');
+  //   if (savedEmail) {
+  //     setEmail(savedEmail);
+  //   }
+  // }, []);
   // const localChecked = localStorage.getItem('checked');
   return (
     <form className="space-y-6" onSubmit={onSubmit}>

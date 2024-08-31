@@ -35,7 +35,7 @@ const ProductPage = () => {
 
 
   let fixedImg: any[] = [];
-  const [activeImg, setActiveImage] = useState(productData?.images[0].replace(/\\|"/g, "").substring(1, productData?.images[0].length - 1));
+  const [activeImg, setActiveImage] = useState(productData?.images[0]);
   if(productData?.images)
   {
     console.log('masuk');
@@ -89,7 +89,7 @@ const ProductPage = () => {
               className="w-full h-full aspect-square object-cover rounded-xl"
             />
             <div className="flex flex-row justify gap-6 h-24">
-              {fixedImg.map((item) => (
+              {productData?.images.map((item) => (
                 <img
                   key={item}
                   src={item}
