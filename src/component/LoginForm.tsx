@@ -5,8 +5,6 @@ interface LoginFormProps {
   setEmail: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
-  rememberme : boolean;
-  setRememberme : (rememberme : boolean) => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -15,20 +13,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
   setEmail,
   password,
   setPassword,
-  rememberme,
-  setRememberme,
   onSubmit,
 }) => {
   const localEmail = localStorage.getItem('rememberedEmail');
-  const [rememberMie,setRemembermee] = useState(false);
 
-  // useEffect(() => {
-  //   const savedEmail = localStorage.getItem('rememberedEmail');
-  //   if (savedEmail) {
-  //     setEmail(savedEmail);
-  //   }
-  // }, []);
-  // const localChecked = localStorage.getItem('checked');
+
   return (
     <form className="space-y-6" onSubmit={onSubmit}>
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -72,22 +61,6 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     onChange={(e) => setPassword(e.target.value)}/>
                 </div>
               </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input id="remember_me" 
-                    name="remember_me" 
-                    type="checkbox" 
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    checked={rememberMie}
-                    onChange={(e) => setRemembermee(e.target.checked)}/>
-                    <label className="ml-2 block text-sm text-gray-900">
-                      Remember me
-                    </label>
-                </div>
-
-              </div>
-
               <div>
                 <button type="submit"
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-400 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">

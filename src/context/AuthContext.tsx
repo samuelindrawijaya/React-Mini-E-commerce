@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     return !!localStorage.getItem("authToken");
   });
   //set user here !!!!! so you can show the profile one !!!
-  const login = async({ email, password, rememberme } : loginArr ) : Promise<loginArr[]> => {
+  const login = async({ email, password } : loginArr ) : Promise<loginArr[]> => {
     if(email)
     {
       //localStorage.setItem("rememberedEmail", email);

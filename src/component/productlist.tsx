@@ -45,7 +45,7 @@ const Product: React.FC<ProductProps> = ({ data }) => {
                     transition-all duration-300
                     "
         >
-          <button onClick={() => handlecart(1, data)}>
+          <button onClick={() => handlecart(1, data)} aria-label="add to cart">
             <div className="flex justify-center items-center text-white w-12 h-12 bg-red-500">
               <HiPlusSmall className="text-3xl" />
             </div>

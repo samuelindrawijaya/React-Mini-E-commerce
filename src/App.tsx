@@ -10,7 +10,6 @@ import Register from "./component/Register";
 // import TodoDetail from "./component/TodoDetail";
 import Navbar from "./component/Navbar";
 import ProtectedRoute from "./component/ProtectedRoute";
-import CategoryList from "./component/CategoryList";
 import SidebarProvider from "./context/sideBarContext";
 import Sidebar from './component/cartSideBar';
 import ProductContext from "./context/productContext";

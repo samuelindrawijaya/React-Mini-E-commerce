@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import LoginForm from "./LoginForm";
+
 import { useAuth } from "../context/AuthContext"; // Import useAuth
 import { useNavigate } from "react-router-dom";
 import { loginArr } from "../interface/loginInterface";
 import Swal from "sweetalert2";
+import LoginForm from "./LoginForm";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [rememberme, setRememberme] = useState<boolean>(false);
   const { login } = useAuth(); // Use the login function from context
   const navigate = useNavigate();
 
@@ -16,12 +16,10 @@ const Login: React.FC = () => {
     event.preventDefault();
     console.log("Entered Email:", email);
     console.log("Entered Password:", password);
-    console.log("Entered checked:", rememberme);
     //should be get user or something or use login fetch 
     const paramater : loginArr = {
       email         :  email,
       password      :  password,
-      rememberme    :  rememberme,
     };
 
     login(paramater)
@@ -53,8 +51,6 @@ const Login: React.FC = () => {
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
-          setRememberme={setRememberme}
-          rememberme={rememberme}
           onSubmit={handleSubmit}
         />
       </div>
